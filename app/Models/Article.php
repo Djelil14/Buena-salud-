@@ -46,4 +46,9 @@ class Article extends Model
                    ->orderBy('date_publication', 'desc')
                    ->get();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->where('approved', true)->latest();
+    }
 }

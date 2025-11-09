@@ -12,7 +12,11 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::orderBy('date_publication', 'desc')->paginate(15);
-        return view('admin.articles.index', compact('articles'));
+        $topByViews = Article::orderBy('views', 'desc')->first();
+        $topByCtr = Article::where('impressions', '>', 0)
+            ->orderByRaw('(views / NULLIF(impressions, 0)) DESC')
+            ->first();
+        return view('admin.articles.index', compact('articles', 'topByViews', 'topByCtr'));
     }
 
     public function create()
