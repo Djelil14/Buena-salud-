@@ -78,6 +78,35 @@
             color: #17a2b8;
         }
 
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-auth-form {
+            margin: 0;
+        }
+
+        .nav-auth-link {
+            color: #17a2b8;
+            text-decoration: none;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .nav-auth-link:hover {
+            text-decoration: underline;
+        }
+
+        .nav-user {
+            font-weight: 600;
+            color: #333;
+        }
+
         /* Hero Section avec banniere */
         .hero {
             background-image: url('/images/banierre.png');
@@ -138,6 +167,18 @@
             background-color: #138496;
         }
 
+        /* Bouton dans la hero - bleu plus foncé pour contraster avec la bannière */
+        .hero .btn-primary {
+            background-color: #00bfff; /* bleu ciel */
+            border: 2px solid #00a6e6;
+        }
+
+        .hero .btn-primary:hover {
+            background-color: #00a6e6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
         .btn-secondary {
             background-color: white;
             color: #17a2b8;
@@ -168,6 +209,36 @@
             font-size: 16px;
             color: #17a2b8;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-title a::after {
+            content: '→';
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .section-title a:hover {
+            background-color: #138496;
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .section-title a:hover::after {
+            transform: translateX(3px);
+        }
+
+        .section-title a:active {
+            transform: translateX(3px) scale(0.98);
         }
 
         /* Articles Grid */
@@ -273,9 +344,22 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
             .nav-menu {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            .nav-auth {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                width: 100%;
             }
             
             .hero h1 {
@@ -306,6 +390,18 @@
                     <li><a href="{{ route('articles') }}" class="{{ Request::is('articles*') ? 'active' : '' }}">Articles</a></li>
                     <li><a href="{{ route('contact') }}" class="{{ Request::is('contact') ? 'active' : '' }}">Contact</a></li>
                 </ul>
+                <div class="nav-auth">
+                    @auth
+                        <span class="nav-user">{{ auth()->user()->name }}</span>
+                        <form method="post" action="{{ route('comment.logout') }}" class="nav-auth-form">
+                            @csrf
+                            <button type="submit" class="nav-auth-link">Déconnexion</button>
+                        </form>
+                    @else
+                        <a href="{{ route('comment.login', ['redirect_to' => request()->fullUrl()]) }}" class="nav-auth-link">Connexion</a>
+                        <a href="{{ route('comment.register', ['redirect_to' => request()->fullUrl()]) }}" class="nav-auth-link">Créer un compte</a>
+                    @endauth
+                </div>
             </nav>
         </div>
     </header>

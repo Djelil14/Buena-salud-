@@ -7,9 +7,29 @@
 		<div class="container">
 			<h1 class="page-title">Tous les articles</h1>
 
-			<div class="articles-grid">
+			<script>
+				// Comptabiliser une impression par article à l'affichage de la liste
+				document.addEventListener('DOMContentLoaded', function() {
+					const items = document.querySelectorAll('[data-article-id]');
+					const seen = new Set();
+					const observer = new IntersectionObserver((entries) => {
+						entries.forEach(e => {
+							if (e.isIntersecting) {
+								const id = e.target.getAttribute('data-article-id');
+								if (!seen.has(id)) {
+									seen.add(id);
+									fetch("{{ route('metrics.impression', '__ID__') }}".replace('__ID__', id), { method: 'POST', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } }).catch(()=>{});
+								}
+							}
+						});
+					},{ threshold: 0.5 });
+					items.forEach(el => observer.observe(el));
+				});
+			</script>
+
+			<div class="articles-grid gap-4">
 				@forelse($articles as $article)
-				<article class="article-card">
+				<article class="article-card" data-article-id="{{ $article->id }}">
 					@if($article->image)
 					<img src="/images/{{ rawurlencode($article->image) }}" alt="{{ $article->title }}" class="article-image">
 					@endif
@@ -22,7 +42,9 @@
 								• {{ $article->date_publication->format('d/m/Y') }}
 							@endif
 						</div>
-						<a href="{{ route('article.show', $article->id) }}" class="btn btn-primary">Lire l'article</a>
+						<div style="text-align: right;">
+							<a href="{{ route('article.show', $article->id) }}" class="inline-block px-6 py-3 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">Lire l'article</a>
+						</div>
 					</div>
 				</article>
 				@empty

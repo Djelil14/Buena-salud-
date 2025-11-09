@@ -5,11 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Article;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ArticleSeeder extends Seeder
 {
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         // Supprime les anciens articles pour éviter les doublons
         Article::truncate();
 
@@ -160,5 +162,6 @@ class ArticleSeeder extends Seeder
         ]);
 
         $this->command->info('6 articles créés avec succès : 3 pour l\'accueil + 3 pour la page articles');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
