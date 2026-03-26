@@ -3,7 +3,6 @@
 @section('title', 'Buena Salud - Blog médical fiable et accessible')
 
 @section('content')
-    <!-- Section Hero -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -23,25 +22,25 @@
                 <a href="{{ route('articles') }}">Tous les articles</a>
             </h2>
             
-            <div class="articles-grid gap-4">
+            <div class="articles-grid">
                 @forelse($articles as $article)
                 <article class="article-card">
                     <img src="/images/{{ rawurlencode($article->image) }}" alt="{{ $article->title }}" class="article-image">
                     <div class="article-content">
                         <h3 class="article-title">{{ $article->title }}</h3>
                         <p class="article-excerpt">{{ $article->excerpt }}</p>
-                        <div style="margin-top: 15px; margin-bottom: 15px; font-size: 14px; color: #888;">
+                        <div class="article-meta">
                             Par {{ $article->auteur }} • {{ $article->date_publication->format('d/m/Y') }}
                         </div>
-                        <div style="text-align: right;">
-                            <a href="{{ route('article.show', $article->id) }}" class="inline-block px-6 py-3 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">Voir plus</a>
+                        <div class="card-actions">
+                            <a href="{{ route('article.show', $article->id) }}" class="btn btn-primary">Voir plus</a>
                         </div>
                     </div>
                 </article>
                 @empty
-                <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                <div class="empty-state">
                     <p>Aucun article disponible pour le moment.</p>
-                    <p><a href="/secretadmin2025" style="color: #17a2b8;">Créer des articles</a></p>
+                    <p><a href="/secretadmin2025" class="muted-link">Créer des articles</a></p>
                 </div>
                 @endforelse
             </div>
@@ -52,7 +51,7 @@
     @if(isset($testimonials) && $testimonials->count() > 0)
     <section class="testimonials-slider-section">
         <div class="container">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Témoignages</h2>
+            <h2 class="section-title text-center centered-title-row">Témoignages</h2>
             
             <div class="testimonials-slider-wrapper">
                 <div class="testimonials-slider" id="testimonialsSlider">
@@ -85,10 +84,54 @@
     @endif
 
     <style>
-        /* Section Témoignages Slider */
+        .hero {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.45), rgba(23, 162, 184, 0.62)), url('/images/banierre.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 460px;
+            display: flex;
+            align-items: center;
+            margin: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            color: #fff;
+            max-width: 720px;
+            padding: 40px 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.1rem, 5vw, 3.4rem);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+        }
+
+        .hero p {
+            font-size: 1.08rem;
+            margin-bottom: 26px;
+            opacity: 0.96;
+        }
+
+        .hero .btn-secondary {
+            margin-left: 10px;
+        }
+
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 48px 20px;
+            background: #fff;
+            border: 1px dashed #cddfe9;
+            border-radius: 14px;
+        }
+
         .testimonials-slider-section {
-            background: #f8f9fa;
+            background: #edf6fb;
             padding: 60px 0;
+            margin-top: 8px;
         }
 
         .testimonials-slider-wrapper {
@@ -120,7 +163,8 @@
             padding: 40px 30px;
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #dceaf2;
+            box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
         }
 
         .testimonial-text {
@@ -194,6 +238,16 @@
 
             .testimonial-content-simple {
                 padding: 30px 20px;
+            }
+
+            .hero {
+                margin: 10px;
+                min-height: 360px;
+            }
+
+            .hero .btn-secondary {
+                margin-left: 0;
+                margin-top: 10px;
             }
         }
     </style>

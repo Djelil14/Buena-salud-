@@ -27,7 +27,7 @@
 				});
 			</script>
 
-			<div class="articles-grid gap-4">
+			<div class="articles-grid">
 				@forelse($articles as $article)
 				<article class="article-card" data-article-id="{{ $article->id }}">
 					@if($article->image)
@@ -36,29 +36,40 @@
 					<div class="article-content">
 						<h3 class="article-title">{{ $article->title }}</h3>
 						<p class="article-excerpt">{{ $article->excerpt }}</p>
-						<div style="margin-top: 15px; margin-bottom: 15px; font-size: 14px; color: #888;">
+						<div class="article-meta">
 							Par {{ $article->auteur ?? 'Administrateur' }}
 							@if($article->date_publication)
 								• {{ $article->date_publication->format('d/m/Y') }}
 							@endif
 						</div>
-						<div style="text-align: right;">
-							<a href="{{ route('article.show', $article->id) }}" class="inline-block px-6 py-3 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">Lire l'article</a>
+						<div class="card-actions">
+							<a href="{{ route('article.show', $article->id) }}" class="btn btn-primary">Lire l'article</a>
 						</div>
 					</div>
 				</article>
 				@empty
-				<div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+				<div class="empty-state">
 					<p>Aucun article disponible pour le moment.</p>
 				</div>
 				@endforelse
 			</div>
 
-			<div style="margin-top: 30px;">
+			<div class="mt-lg">
 				{{ $articles->links() }}
 			</div>
 		</div>
 	</section>
+
+	<style>
+		.empty-state {
+			grid-column: 1/-1;
+			text-align: center;
+			padding: 40px;
+			background: #fff;
+			border: 1px dashed #d4e3ed;
+			border-radius: 12px;
+		}
+	</style>
 @endsection
 
 

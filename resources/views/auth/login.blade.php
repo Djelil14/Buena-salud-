@@ -4,16 +4,16 @@
 
 @section('content')
 	<section class="main-content">
-		<div class="container" style="max-width: 520px; margin: 0 auto;">
-			<h1 class="page-title" style="text-align: center; margin-bottom: 20px;">Connexion</h1>
-			<p style="text-align: center; color: #6c757d; margin-bottom: 35px;">Renseignez vos identifiants pour participer aux commentaires.</p>
+		<div class="container centered-form-container">
+			<h1 class="page-title text-center mb-md">Connexion</h1>
+			<p class="section-subtitle text-center">Renseignez vos identifiants pour participer aux commentaires.</p>
 
-			<form method="post" action="{{ route('comment.login.submit') }}" class="contact-form" style="box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
+			<form method="post" action="{{ route('comment.login.submit') }}" class="contact-form">
 				@csrf
 				<input type="hidden" name="redirect_to" value="{{ $redirectTo }}">
 
 				@if($errors->has('email'))
-					<div class="alert alert-error" style="margin-bottom: 20px;">
+					<div class="alert alert-error">
 						{{ $errors->first('email') }}
 					</div>
 				@endif
@@ -28,20 +28,25 @@
 					<input type="password" id="password" name="password" class="form-control" required>
 				</div>
 
-				<div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+				<div class="form-group form-inline-check">
 					<input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-					<label for="remember" style="margin: 0;">Se souvenir de moi</label>
+					<label for="remember">Se souvenir de moi</label>
 				</div>
 
-				<button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
+				<button type="submit" class="btn btn-primary form-full">Se connecter</button>
 			</form>
 
-			<div style="text-align: center; margin-top: 25px; color: #6c757d;">
+			<div class="text-center stack-sm text-muted">
 				<span>Pas encore de compte ?</span>
-				<a href="{{ route('comment.register', ['redirect_to' => $redirectTo]) }}" style="color: #17a2b8; font-weight: 600;">Créer un compte</a>
+				<a href="{{ route('comment.register', ['redirect_to' => $redirectTo]) }}" class="muted-link">Créer un compte</a>
 			</div>
 		</div>
 	</section>
 @endsection
+
+
+
+
+
 
 

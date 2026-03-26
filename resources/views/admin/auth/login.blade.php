@@ -4,15 +4,16 @@
 
 @section('content')
 	<section class="main-content">
-		<div class="container">
-			<h1 class="page-title">Connexion administrateur</h1>
-			<form method="post" action="{{ route('admin.login.post') }}" class="contact-form" style="max-width:480px;">
+		<div class="container centered-form-container">
+			<h1 class="page-title text-center">Connexion administrateur</h1>
+			<p class="section-subtitle text-center">Accédez au back-office pour gérer les articles et messages.</p>
+			<form method="post" action="{{ route('admin.login.post') }}" class="contact-form">
 				@csrf
 				<div class="form-group">
 					<label>Nom d'utilisateur</label>
 					<input type="text" name="username" class="form-control" value="{{ old('username') }}" required>
 					@error('username')
-						<div style="color:#dc3545; margin-top:6px;">{{ $message }}</div>
+						<span class="form-error">{{ $message }}</span>
 					@enderror
 				</div>
 				<div class="form-group">

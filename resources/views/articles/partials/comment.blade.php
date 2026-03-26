@@ -1,6 +1,12 @@
 <div class="comment-item {{ $depth > 0 ? 'comment-reply' : '' }}" data-comment-id="{{ $comment->id }}">
 	<div class="comment-header">
-		<strong class="comment-author">{{ $comment->author_name }}</strong>
+		<div class="comment-author-wrap">
+			<span class="comment-avatar">{{ strtoupper(mb_substr($comment->author_name, 0, 1)) }}</span>
+			<strong class="comment-author">{{ $comment->author_name }}</strong>
+			@if($depth > 0)
+				<span class="comment-badge">Réponse</span>
+			@endif
+		</div>
 		<span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
 	</div>
 	<div class="comment-body">

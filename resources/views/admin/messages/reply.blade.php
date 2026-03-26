@@ -4,10 +4,11 @@
 
 @section('admin-content')
 	<h1 class="page-title">Répondre à {{ $message->name }} ({{ $message->email }})</h1>
+	<p class="section-subtitle">Conservez un ton clair et professionnel pour améliorer l'expérience utilisateur.</p>
 
-	<div style="background:#fff; border-radius:10px; box-shadow:0 4px 6px rgba(0,0,0,0.1); padding:16px; margin-bottom:20px;">
-		<div style="color:#666; margin-bottom:8px;">Message reçu le {{ $message->created_at->format('d/m/Y H:i') }}</div>
-		<pre style="white-space:pre-wrap; word-wrap:break-word; background:#f8f9fa; padding:12px; border-radius:6px;">{{ $message->message }}</pre>
+	<div class="surface surface-padded mb-lg">
+		<div class="section-subtitle mb-sm">Message reçu le {{ $message->created_at->format('d/m/Y H:i') }}</div>
+		<pre class="pre-message">{{ $message->message }}</pre>
 	</div>
 
 	<form method="post" action="{{ route('admin.messages.sendReply', $message->id) }}" class="contact-form">
@@ -20,8 +21,10 @@
 			<label>Réponse</label>
 			<textarea name="body" class="form-control" rows="8" required>@php echo "\nBonjour {$message->name},\n\nMerci pour votre message. \n\nCordialement,\nL'équipe ".config('app.name')."\n"; @endphp</textarea>
 		</div>
-		<button type="submit" class="btn btn-primary">Envoyer</button>
-		<a href="{{ route('admin.messages.index') }}" class="btn btn-secondary">Annuler</a>
+		<div class="actions-row">
+			<button type="submit" class="btn btn-primary">Envoyer</button>
+			<a href="{{ route('admin.messages.index') }}" class="btn btn-secondary">Annuler</a>
+		</div>
 	</form>
 @endsection
 
