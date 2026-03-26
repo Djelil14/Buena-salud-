@@ -11,13 +11,9 @@
 			</div>
 
 			<div class="contact-wrapper">
-				<!-- Formulaire -->
 				<div class="contact-form-wrapper">
 				@if(session('success'))
 						<div class="alert alert-success">
-							<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" style="margin-right: 8px;">
-								<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-							</svg>
 						{{ session('success') }}
 					</div>
 				@endif
@@ -83,9 +79,6 @@
 
 							<button type="submit" class="btn btn-primary btn-submit">
 								<span>Envoyer le message</span>
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" style="margin-left: 8px;">
-									<path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
-								</svg>
 							</button>
 				</form>
 					</div>
@@ -97,14 +90,13 @@
 	<style>
 		/* Styles pour la page contact */
 		.contact-page {
-			background: #f8f9fa;
-			min-height: calc(100vh - 200px);
+			min-height: calc(100vh - 220px);
 		}
 
 		.contact-header {
 			text-align: center;
-			margin-bottom: 50px;
-			padding-top: 20px;
+			margin-bottom: 36px;
+			padding-top: 8px;
 		}
 
 		.contact-page-title {
@@ -126,7 +118,7 @@
 		.contact-wrapper {
 			display: flex;
 			justify-content: center;
-			margin-bottom: 60px;
+			margin-bottom: 30px;
 		}
 
 		.contact-form-wrapper {
@@ -137,13 +129,18 @@
 
 		.contact-form-card {
 			background: white;
-			border-radius: 16px;
+			border-radius: 18px;
+			border: 1px solid #e1eaf1;
 			padding: 45px;
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 18px 32px rgba(15, 23, 42, 0.09);
 		}
 
 		.contact-form {
 			display: flex;
+			flex-direction: column;
+			gap: 24px;
+		}
+
 		.contact-auth-summary {
 			background: #e7f5ff;
 			border: 1px solid #bee3f8;
@@ -152,9 +149,6 @@
 			margin-bottom: 25px;
 			color: #0c5460;
 			font-size: 14px;
-		}
-			flex-direction: column;
-			gap: 24px;
 		}
 
 		.form-row {
@@ -231,7 +225,7 @@
 			align-items: center;
 			justify-content: center;
 			width: 100%;
-			margin-top: 10px;
+			margin-top: 4px;
 			transition: all 0.3s ease;
 			box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
 		}

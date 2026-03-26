@@ -3,21 +3,21 @@
 @section('content')
 	<section class="main-content">
 		<div class="container">
-			<div style="display:flex; gap:24px;">
-				<aside style="width:240px;">
-					<nav style="background:#fff; border-radius:10px; box-shadow:0 4px 6px rgba(0,0,0,0.1); padding:16px;">
-						<ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
+			<div class="admin-grid">
+				<aside class="admin-sidebar surface">
+					<nav>
+						<ul class="admin-sidebar-nav">
 							<li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
 							<li><a href="{{ route('admin.articles.index') }}">Articles</a></li>
 							<li><a href="{{ route('admin.messages.index') }}">Messages</a></li>
 						</ul>
-						<form method="post" action="{{ route('admin.logout') }}" style="margin-top:12px;">
+						<form method="post" action="{{ route('admin.logout') }}" class="stack-sm">
 							@csrf
 							<button type="submit" class="btn btn-secondary">Se déconnecter</button>
 						</form>
 					</nav>
 				</aside>
-				<div style="flex:1;">
+				<div>
 					@yield('admin-content')
 				</div>
 			</div>

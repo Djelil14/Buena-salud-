@@ -4,11 +4,11 @@
 
 @section('content')
 	<section class="main-content">
-		<div class="container" style="max-width: 560px; margin: 0 auto;">
-			<h1 class="page-title" style="text-align: center; margin-bottom: 20px;">Créer un compte</h1>
-			<p style="text-align: center; color: #6c757d; margin-bottom: 35px;">Choisissez un pseudonyme (ou votre nom) et un mot de passe pour commenter plus facilement.</p>
+		<div class="container centered-form-container">
+			<h1 class="page-title text-center mb-md">Créer un compte</h1>
+			<p class="section-subtitle text-center">Choisissez un pseudonyme (ou votre nom) et un mot de passe pour commenter plus facilement.</p>
 
-			<form method="post" action="{{ route('comment.register.submit') }}" class="contact-form" style="box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
+			<form method="post" action="{{ route('comment.register.submit') }}" class="contact-form">
 				@csrf
 				<input type="hidden" name="redirect_to" value="{{ $redirectTo }}">
 
@@ -41,15 +41,20 @@
 					<input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
 				</div>
 
-				<button type="submit" class="btn btn-primary" style="width: 100%;">Créer mon compte</button>
+				<button type="submit" class="btn btn-primary form-full">Créer mon compte</button>
 			</form>
 
-			<div style="text-align: center; margin-top: 25px; color: #6c757d;">
+			<div class="text-center stack-sm text-muted">
 				<span>Déjà inscrit ?</span>
-				<a href="{{ route('comment.login', ['redirect_to' => $redirectTo]) }}" style="color: #17a2b8; font-weight: 600;">Se connecter</a>
+				<a href="{{ route('comment.login', ['redirect_to' => $redirectTo]) }}" class="muted-link">Se connecter</a>
 			</div>
 		</div>
 	</section>
 @endsection
+
+
+
+
+
 
 

@@ -5,51 +5,41 @@
 @section('content')
 	<section class="main-content article-detail">
 		<div class="container">
-			<!-- Bouton retour -->
-			<div style="margin-bottom: 30px;">
-				<a href="{{ route('articles') }}" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
-					<span>←</span> Retour aux articles
-				</a>
+			<div class="article-top-actions">
+				<a href="{{ route('articles') }}" class="btn btn-secondary">← Retour aux articles</a>
 			</div>
 
-			<!-- Article principal -->
 			<article class="article-single">
-				<!-- Image de l'article -->
 				@if($article->image)
 					<div class="article-hero-image">
 						<img src="/images/{{ rawurlencode($article->image) }}" alt="{{ $article->title }}">
 					</div>
 				@endif
 
-				<!-- Contenu de l'article -->
 				<div class="article-single-content">
-					<!-- En-tête -->
 					<header class="article-header">
 						<h1 class="article-single-title">{{ $article->title }}</h1>
-						<div class="article-meta">
+						<div class="article-head-meta">
 							<span class="article-author">Par {{ $article->auteur ?? 'Administrateur' }}</span>
 						@if($article->date_publication)
 								<span class="article-separator">•</span>
 								<time class="article-date">{{ $article->date_publication->format('d F Y') }}</time>
 						@endif
-					</div>
+						</div>
 					</header>
 
-					<!-- Extrait -->
 					@if($article->excerpt)
 						<div class="article-excerpt-single">
 							{{ $article->excerpt }}
 						</div>
 					@endif
 
-					<!-- Contenu -->
 					<div class="article-body-content">
 						{!! nl2br($article->content) !!}
 					</div>
 				</div>
 			</article>
 			
-			<!-- Section Commentaires -->
 			<div class="comments-section">
 				@php
 					$totalComments = $comments->count() + $comments->sum(function($comment) {
@@ -70,7 +60,6 @@
 					</div>
 				@endif
 
-				<!-- Liste des commentaires -->
 				<div class="comments-list">
 					@forelse($comments as $comment)
 						@include('articles.partials.comment', ['comment' => $comment, 'article' => $article, 'depth' => 0])
@@ -81,7 +70,6 @@
 					@endforelse
 				</div>
 
-				<!-- Formulaire de commentaire -->
 				<div class="comment-form-container" id="main-comment-form">
 					<h3 class="comment-form-title">Laisser un commentaire</h3>
 					@guest
@@ -112,9 +100,9 @@
 									<span class="form-error">{{ $message }}</span>
 								@enderror
 							</div>
-							<div id="reply-info" style="display: none; margin-bottom: 15px; padding: 10px; background: #e7f3ff; border-left: 4px solid #17a2b8; border-radius: 4px;">
+							<div id="reply-info" class="reply-info is-hidden">
 								<strong>Vous répondez à :</strong> <span id="reply-author-name"></span>
-								<button type="button" onclick="cancelReply()" style="margin-left: 10px; color: #dc3545; text-decoration: underline; background: none; border: none; cursor: pointer;">Annuler</button>
+								<button type="button" onclick="cancelReply()" class="btn-link-danger">Annuler</button>
 							</div>
 							<button type="submit" class="btn btn-primary comment-submit">Publier le commentaire</button>
 						</form>
@@ -125,17 +113,21 @@
 	</section>
 
 	<style>
-		/* Styles pour la page d'article */
 		.article-detail {
-			background-color: #f8f9fa;
+			padding-top: 24px;
 		}
 
 		.article-single {
 			background: white;
-			border-radius: 12px;
-			box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+			border-radius: 18px;
+			border: 1px solid #e4edf3;
+			box-shadow: 0 20px 34px rgba(15, 23, 42, 0.08);
 			overflow: hidden;
-			margin-bottom: 50px;
+			margin-bottom: 34px;
+		}
+
+		.article-top-actions {
+			margin-bottom: 24px;
 		}
 
 		.article-hero-image {
@@ -154,7 +146,7 @@
 		}
 
 		.article-single-content {
-			max-width: 800px;
+			max-width: 860px;
 			margin: 0 auto;
 			padding: 50px 40px;
 		}
@@ -174,7 +166,7 @@
 			letter-spacing: -0.5px;
 		}
 
-		.article-meta {
+		.article-head-meta {
 			display: flex;
 			align-items: center;
 			gap: 12px;
@@ -196,7 +188,7 @@
 		}
 
 		.article-excerpt-single {
-			font-size: 20px;
+			font-size: 19px;
 			line-height: 1.6;
 			color: #555;
 			font-style: italic;
@@ -205,7 +197,7 @@
 			padding-left: 25px;
 			margin-bottom: 30px;
 			background: #f8f9fa;
-			border-radius: 4px;
+			border-radius: 8px;
 		}
 
 		.article-body-content {
@@ -245,11 +237,11 @@
 			margin-bottom: 5px;
 		}
 
-		/* Section Commentaires */
 		.comments-section {
 			background: white;
-			border-radius: 12px;
-			box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+			border-radius: 18px;
+			border: 1px solid #e4edf3;
+			box-shadow: 0 20px 34px rgba(15, 23, 42, 0.08);
 			padding: 40px;
 			margin-bottom: 30px;
 		}
@@ -296,19 +288,18 @@
 		}
 
 		.comment-item {
-			padding: 20px;
-			background: #f8f9fa;
-			border-radius: 8px;
-			border-left: 4px solid #17a2b8;
+			padding: 20px 18px;
+			background: #f8fbfe;
+			border-radius: 12px;
+			border: 1px solid #dceaf3;
 			margin-bottom: 15px;
 		}
 
 		.comment-reply {
 			margin-left: 40px;
 			margin-top: 15px;
-			border-left-color: #6c757d;
 			background: #ffffff;
-			border-left-width: 3px;
+			border-color: #e5ebf0;
 		}
 
 		.comment-replies {
@@ -324,9 +315,39 @@
 			gap: 10px;
 		}
 
+		.comment-author-wrap {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.comment-avatar {
+			width: 34px;
+			height: 34px;
+			border-radius: 50%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 700;
+			font-size: 13px;
+			color: #fff;
+			background: linear-gradient(135deg, #17a2b8, #56c5d4);
+		}
+
 		.comment-author {
 			color: #17a2b8;
 			font-size: 16px;
+		}
+
+		.comment-badge {
+			padding: 4px 8px;
+			border-radius: 999px;
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 0.02em;
+			color: #0f766e;
+			background: #d9f3f7;
+			border: 1px solid #bbe8ef;
 		}
 
 		.comment-date {
@@ -369,7 +390,6 @@
 			font-style: italic;
 		}
 
-		/* Formulaire de commentaire */
 		.comment-form-container {
 			border-top: 2px solid #e9ecef;
 			padding-top: 35px;
@@ -478,20 +498,34 @@
 			font-weight: 600;
 		}
 
-			.btn-link {
-				background: none;
-				border: none;
-				color: #dc3545;
-				cursor: pointer;
-				font-weight: 600;
-				padding: 0;
-			}
+		.btn-link {
+			background: none;
+			border: none;
+			color: #dc3545;
+			cursor: pointer;
+			font-weight: 600;
+			padding: 0;
+		}
 
-			.btn-link:hover {
-				text-decoration: underline;
-			}
+		.btn-link:hover { text-decoration: underline; }
+		.reply-info {
+			margin-bottom: 15px;
+			padding: 10px 12px;
+			background: #e7f3ff;
+			border-left: 4px solid #17a2b8;
+			border-radius: 6px;
+		}
 
-		/* Responsive */
+		.btn-link-danger {
+			margin-left: 10px;
+			color: #dc3545;
+			text-decoration: underline;
+			background: none;
+			border: none;
+			cursor: pointer;
+			font-weight: 600;
+		}
+
 		@media (max-width: 768px) {
 			.article-hero-image {
 				height: 280px;
@@ -523,6 +557,12 @@
 
 			.comment-reply {
 				margin-left: 20px;
+			}
+
+			.comment-avatar {
+				width: 30px;
+				height: 30px;
+				font-size: 12px;
 			}
 		}
 	</style>
