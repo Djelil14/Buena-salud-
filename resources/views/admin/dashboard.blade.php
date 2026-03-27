@@ -91,8 +91,8 @@
 
 	<style>
 		.admin-dashboard-hero {
-			background: #ffffff;
-			border: 1px solid #d9e7f1;
+			background: linear-gradient(135deg, #0f172a 0%, #1b3f53 55%, #1690a5 100%);
+			border: 1px solid rgba(255, 255, 255, 0.14);
 			border-radius: 18px;
 			padding: 22px;
 			display: flex;
@@ -113,16 +113,20 @@
 			font-weight: 800;
 			letter-spacing: 0.06em;
 			text-transform: uppercase;
-			color: #0f766e;
-			background: #dcf6fb;
-			border: 1px solid #b9eaf3;
+			color: #ecfeff;
+			background: rgba(255, 255, 255, 0.14);
+			border: 1px solid rgba(255, 255, 255, 0.3);
 			margin-bottom: 10px;
 		}
 
 		.dashboard-subtitle {
 			margin: 6px 0 0 0;
-			color: #64748b;
+			color: rgba(255, 255, 255, 0.86);
 			max-width: 680px;
+		}
+
+		.admin-dashboard-hero .page-title {
+			color: #ffffff;
 		}
 
 		.dashboard-kpis-grid {
