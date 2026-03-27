@@ -4,11 +4,37 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
+    public function dashboard()
+    {
+        $totalArticles = Article::count();
+        $publishedArticles = Article::where('published', true)->count();
+        $draftArticles = max(0, $totalArticles - $publishedArticles);
+        $totalViews = (int) Article::sum('views');
+        $totalImpressions = (int) Article::sum('impressions');
+        $avgCtr = $totalImpressions > 0 ? round(($totalViews / max(1, $totalImpressions)) * 100, 1) : 0;
+        $totalMessages = ContactMessage::count();
+        $latestArticles = Article::orderByDesc('date_publication')->limit(5)->get();
+        $latestMessages = ContactMessage::orderByDesc('created_at')->limit(5)->get();
+
+        return view('admin.dashboard', compact(
+            'totalArticles',
+            'publishedArticles',
+            'draftArticles',
+            'totalViews',
+            'totalImpressions',
+            'avgCtr',
+            'totalMessages',
+            'latestArticles',
+            'latestMessages'
+        ));
+    }
+
     public function index()
     {
         $articles = Article::orderBy('date_publication', 'desc')->paginate(15);

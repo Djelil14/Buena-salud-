@@ -41,7 +41,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Zone protégées
     Route::middleware('admin')->group(function () {
-        Route::get('/', [AdminArticleController::class, 'index'])->name('dashboard');
+        Route::get('/', [AdminArticleController::class, 'dashboard'])->name('dashboard');
         Route::resource('articles', AdminArticleController::class)->except(['show']);
         Route::get('messages', [AdminMessageController::class, 'index'])->name('messages.index');
         Route::delete('messages/{id}', [AdminMessageController::class, 'destroy'])->name('messages.destroy');
