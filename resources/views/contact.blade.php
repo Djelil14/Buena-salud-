@@ -5,12 +5,30 @@
 @section('content')
 	<section class="main-content contact-page">
 		<div class="container">
-			<div class="contact-header">
-				<h1 class="contact-page-title">Contactez-nous</h1>
-				<p class="contact-page-subtitle">Nous sommes là pour répondre à vos questions et vous accompagner dans votre parcours de santé.</p>
+			<div class="contact-hero fade-up">
+				<div>
+					<h1 class="contact-page-title">Contactez-nous</h1>
+					<p class="contact-page-subtitle">Une question, un retour ou une demande ? Notre équipe vous répond rapidement avec des conseils clairs et utiles.</p>
+				</div>
+				<div class="contact-hero-mini">
+					<span>Réponse moyenne</span>
+					<strong>&lt; 24h</strong>
+				</div>
 			</div>
 
-			<div class="contact-wrapper">
+			<div class="contact-layout fade-up-delayed">
+				<aside class="surface contact-side">
+					<h3>Pourquoi nous écrire ?</h3>
+					<ul>
+						<li>Recevoir une réponse personnalisée</li>
+						<li>Signaler un problème sur un article</li>
+						<li>Proposer un sujet santé à traiter</li>
+					</ul>
+					<div class="contact-side-note">
+						Nous lisons chaque message avec attention et revenons vers vous au plus vite.
+					</div>
+				</aside>
+
 				<div class="contact-form-wrapper">
 				@if(session('success'))
 						<div class="alert alert-success">
@@ -93,38 +111,99 @@
 			min-height: calc(100vh - 220px);
 		}
 
-		.contact-header {
-			text-align: center;
-			margin-bottom: 36px;
-			padding-top: 8px;
+		.contact-hero {
+			background: linear-gradient(135deg, #0f172a 0%, #1a3f54 50%, #1b8ea1 100%);
+			border-radius: 18px;
+			padding: 22px;
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			gap: 14px;
+			margin-bottom: 16px;
+			color: #fff;
+			flex-wrap: wrap;
 		}
 
 		.contact-page-title {
-			font-size: 42px;
-			font-weight: 700;
-			color: #1a1a1a;
-			margin-bottom: 15px;
+			font-size: clamp(2rem, 4vw, 2.6rem);
+			font-weight: 800;
+			color: #fff;
+			margin-bottom: 8px;
 			letter-spacing: -0.5px;
 		}
 
 		.contact-page-subtitle {
-			font-size: 18px;
-			color: #666;
-			max-width: 600px;
-			margin: 0 auto;
+			font-size: 1rem;
+			color: rgba(255, 255, 255, 0.88);
+			max-width: 680px;
+			margin: 0;
 			line-height: 1.6;
 		}
 
-		.contact-wrapper {
-			display: flex;
-			justify-content: center;
-			margin-bottom: 30px;
+		.contact-hero-mini {
+			background: rgba(255, 255, 255, 0.12);
+			border: 1px solid rgba(255, 255, 255, 0.24);
+			border-radius: 12px;
+			padding: 10px 12px;
+			min-width: 132px;
+		}
+
+		.contact-hero-mini span {
+			display: block;
+			font-size: 12px;
+			opacity: 0.9;
+		}
+
+		.contact-hero-mini strong {
+			display: block;
+			font-size: 1.35rem;
+			font-weight: 800;
+		}
+
+		.contact-layout {
+			display: grid;
+			grid-template-columns: 300px minmax(0, 1fr);
+			gap: 16px;
+			align-items: start;
+		}
+
+		.contact-side {
+			padding: 16px;
+			position: sticky;
+			top: 86px;
+		}
+
+		.contact-side h3 {
+			font-size: 1.05rem;
+			font-weight: 800;
+			margin-bottom: 12px;
+			color: #0f172a;
+		}
+
+		.contact-side ul {
+			list-style: none;
+			display: grid;
+			gap: 10px;
+			margin-bottom: 14px;
+		}
+
+		.contact-side li {
+			padding: 10px 12px;
+			background: #f6fbfe;
+			border: 1px solid #dceaf3;
+			border-radius: 10px;
+			font-size: 14px;
+			color: #334155;
+		}
+
+		.contact-side-note {
+			font-size: 13px;
+			color: #64748b;
+			line-height: 1.5;
 		}
 
 		.contact-form-wrapper {
-			position: relative;
 			width: 100%;
-			max-width: 800px;
 		}
 
 		.contact-form-card {
@@ -263,6 +342,18 @@
 
 		/* Responsive */
 		@media (max-width: 768px) {
+			.contact-layout {
+				grid-template-columns: 1fr;
+			}
+
+			.contact-side {
+				position: static;
+			}
+
+			.contact-hero-mini {
+				width: 100%;
+			}
+
 			.contact-page-title {
 				font-size: 32px;
 			}
