@@ -5,42 +5,48 @@
 @section('content')
 	<section class="main-content article-detail">
 		<div class="container">
+			@php
+				$wordCount = str_word_count(strip_tags($article->content ?? ''));
+				$readingTime = max(1, (int) ceil($wordCount / 220));
+			@endphp
 			<div class="article-top-actions">
 				<a href="{{ route('articles') }}" class="btn btn-secondary">← Retour aux articles</a>
 			</div>
 
 			<article class="article-single">
-				@if($article->image)
-					<div class="article-hero-image">
-						<img src="/images/{{ rawurlencode($article->image) }}" alt="{{ $article->title }}">
-					</div>
-				@endif
-
-				<div class="article-single-content">
-					<header class="article-header">
-						<h1 class="article-single-title">{{ $article->title }}</h1>
-						<div class="article-head-meta">
-							<span class="article-author">Par {{ $article->auteur ?? 'Administrateur' }}</span>
-						@if($article->date_publication)
-								<span class="article-separator">•</span>
-								<time class="article-date">{{ $article->date_publication->format('d F Y') }}</time>
-						@endif
-						</div>
-					</header>
-
-					@if($article->excerpt)
-						<div class="article-excerpt-single">
-							{{ $article->excerpt }}
+					@if($article->image)
+						<div class="article-hero-image">
+							<img src="/images/{{ rawurlencode($article->image) }}" alt="{{ $article->title }}">
 						</div>
 					@endif
 
-					<div class="article-body-content">
-						{!! nl2br($article->content) !!}
+					<div class="article-single-content">
+						<header class="article-header">
+							<h1 class="article-single-title">{{ $article->title }}</h1>
+							<div class="article-head-meta">
+								<span class="article-author">Par {{ $article->auteur ?? 'Administrateur' }}</span>
+							@if($article->date_publication)
+									<span class="article-separator">•</span>
+									<time class="article-date">{{ $article->date_publication->format('d F Y') }}</time>
+							@endif
+								<span class="article-separator">•</span>
+								<span>{{ $readingTime }} min de lecture</span>
+							</div>
+						</header>
+
+						@if($article->excerpt)
+							<div class="article-excerpt-single">
+								{{ $article->excerpt }}
+							</div>
+						@endif
+
+						<div class="article-body-content">
+							{!! nl2br($article->content) !!}
+						</div>
 					</div>
-				</div>
 			</article>
-			
-			<div class="comments-section">
+
+			<div class="comments-section fade-up">
 				@php
 					$totalComments = $comments->count() + $comments->sum(function($comment) {
 						return $comment->replies ? $comment->replies->count() : 0;
@@ -122,8 +128,8 @@
 			border-radius: 18px;
 			border: 1px solid #e4edf3;
 			box-shadow: 0 20px 34px rgba(15, 23, 42, 0.08);
-			overflow: hidden;
 			margin-bottom: 34px;
+			overflow: hidden;
 		}
 
 		.article-top-actions {
@@ -148,8 +154,9 @@
 		.article-single-content {
 			max-width: 860px;
 			margin: 0 auto;
-			padding: 50px 40px;
+			padding: 56px 46px;
 		}
+
 
 		.article-header {
 			margin-bottom: 30px;
@@ -201,10 +208,12 @@
 		}
 
 		.article-body-content {
-			font-size: 18px;
-			line-height: 1.6;
+			font-size: 19px;
+			line-height: 1.75;
 			color: #333;
 			word-wrap: break-word;
+			max-width: 760px;
+			margin: 0 auto;
 		}
 
 		.article-body-content p {
@@ -395,38 +404,38 @@
 			padding-top: 35px;
 		}
 
-			.comment-auth-callout {
-				padding: 25px;
-				background: #f1f5f9;
-				border-radius: 10px;
-				border: 1px solid #e2e8f0;
-				margin-bottom: 20px;
-				text-align: center;
-			}
+		.comment-auth-callout {
+			padding: 25px;
+			background: #f1f5f9;
+			border-radius: 10px;
+			border: 1px solid #e2e8f0;
+			margin-bottom: 20px;
+			text-align: center;
+		}
 
-			.comment-auth-actions {
-				display: flex;
-				justify-content: center;
-				gap: 15px;
-				flex-wrap: wrap;
-				margin-top: 15px;
-			}
+		.comment-auth-actions {
+			display: flex;
+			justify-content: center;
+			gap: 15px;
+			flex-wrap: wrap;
+			margin-top: 15px;
+		}
 
-			.comment-user-context {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				gap: 15px;
-				padding: 18px;
-				background: #f1f5f9;
-				border-radius: 10px;
-				margin-bottom: 20px;
-				font-size: 14px;
-			}
+		.comment-user-context {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 15px;
+			padding: 18px;
+			background: #f1f5f9;
+			border-radius: 10px;
+			margin-bottom: 20px;
+			font-size: 14px;
+		}
 
-			.comment-logout-form {
-				margin: 0;
-			}
+		.comment-logout-form {
+			margin: 0;
+		}
 
 		.comment-form-title {
 			font-size: 24px;
@@ -545,6 +554,7 @@
 
 			.article-body-content {
 				font-size: 16px;
+				line-height: 1.7;
 			}
 
 			.comments-section {
@@ -574,7 +584,7 @@
 			document.getElementById('reply-author-name').textContent = authorName;
 			
 			// Afficher l'info de réponse
-			document.getElementById('reply-info').style.display = 'block';
+			document.getElementById('reply-info').classList.remove('is-hidden');
 			
 			// Faire défiler vers le formulaire
 			document.getElementById('main-comment-form').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -586,7 +596,7 @@
 		function cancelReply() {
 			// Réinitialiser le formulaire
 			document.getElementById('reply_to_comment').value = '';
-			document.getElementById('reply-info').style.display = 'none';
+			document.getElementById('reply-info').classList.add('is-hidden');
 			document.getElementById('content').value = '';
 		}
 
