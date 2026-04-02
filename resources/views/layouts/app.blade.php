@@ -9,6 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html {
+            overflow-x: clip;
+            -webkit-text-size-adjust: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
         :root {
             --primary: #17a2b8;
             --primary-dark: #138496;
@@ -28,6 +36,19 @@
             line-height: 1.6;
             color: var(--ink);
             background: radial-gradient(circle at top right, #eaf7fa 0%, var(--bg) 35%, #f8fafc 100%);
+            overflow-x: clip;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         .header {
@@ -48,9 +69,85 @@
 
         .navbar {
             display: flex;
+            flex-wrap: nowrap;
             justify-content: space-between;
             align-items: center;
             gap: 22px;
+        }
+
+        .navbar-brand-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .nav-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fff;
+            cursor: pointer;
+            flex-shrink: 0;
+            color: var(--ink);
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            touch-action: manipulation;
+        }
+
+        .nav-toggle:hover {
+            background: #f0fbfd;
+            border-color: #bfeaf0;
+        }
+
+        .nav-toggle-icon {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: currentColor;
+            border-radius: 1px;
+            position: relative;
+        }
+
+        .nav-toggle-icon::before,
+        .nav-toggle-icon::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 22px;
+            height: 2px;
+            background: currentColor;
+            border-radius: 1px;
+        }
+
+        .nav-toggle-icon::before { top: -7px; }
+        .nav-toggle-icon::after { top: 7px; }
+
+        .nav-toggle[aria-expanded="true"] .nav-toggle-icon {
+            background: transparent;
+        }
+
+        .nav-toggle[aria-expanded="true"] .nav-toggle-icon::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .nav-toggle[aria-expanded="true"] .nav-toggle-icon::after {
+            top: 0;
+            transform: rotate(-45deg);
+        }
+
+        .nav-panel {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex: 1;
+            justify-content: flex-end;
+            min-width: 0;
         }
 
         .logo {
@@ -60,6 +157,14 @@
             font-weight: 800;
             color: var(--ink);
             text-decoration: none;
+            min-width: 0;
+        }
+
+        .logo-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: min(220px, 55vw);
         }
 
         .logo-icon {
@@ -177,6 +282,63 @@
 
         .main-content {
             padding: 56px 0;
+        }
+
+        .pagination-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 8px 0;
+        }
+
+        .pagination-wrap ul.pagination {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pagination-wrap ul.pagination li {
+            display: inline-flex;
+        }
+
+        .pagination-wrap ul.pagination li > a,
+        .pagination-wrap ul.pagination li > span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            background: #fff;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .pagination-wrap ul.pagination li > a:hover {
+            background: #f0fbfd;
+            color: var(--primary-dark);
+            border-color: #bfeaf0;
+        }
+
+        .pagination-wrap ul.pagination li.active > span {
+            background: linear-gradient(135deg, #1cb6cf, var(--primary));
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .pagination-wrap ul.pagination li.disabled > span {
+            opacity: 0.45;
+            pointer-events: none;
+            background: #f8fafc;
         }
 
         .section-title {
@@ -416,13 +578,6 @@
             border: 1px solid #fecaca;
         }
 
-        .admin-grid {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 24px;
-            align-items: start;
-        }
-
         .admin-sidebar {
             position: sticky;
             top: 90px;
@@ -531,36 +686,135 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .main-content {
+                padding: 32px 0;
+            }
+
+            .header {
+                padding: 10px 0;
+            }
+
             .navbar {
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .navbar-brand-row {
+                flex: 1;
+                min-width: 0;
+                justify-content: space-between;
+            }
+
+            .nav-toggle {
+                display: inline-flex;
+            }
+
+            .nav-panel {
+                display: none;
+                width: 100%;
+                flex-basis: 100%;
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 14px;
+                align-items: stretch;
+                gap: 0;
+                padding: 12px 0 4px;
+                margin-top: 4px;
+                border-top: 1px solid var(--border);
+            }
+
+            .nav-panel.is-open {
+                display: flex;
             }
 
             .nav-menu {
                 flex-direction: column;
-                gap: 0.4rem;
+                gap: 2px;
                 width: 100%;
             }
 
+            .nav-menu a {
+                display: block;
+                padding: 14px 12px;
+                min-height: 44px;
+            }
+
             .nav-auth {
-                align-items: flex-start;
-                gap: 8px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
                 width: 100%;
+                padding-top: 8px;
+                border-top: 1px solid #eef4f8;
+            }
+
+            .nav-auth-link {
+                padding: 12px;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            .nav-user {
+                padding: 8px 12px;
+                word-break: break-word;
+            }
+
+            .section-title {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .section-title a {
+                justify-content: center;
+                width: 100%;
+                text-align: center;
             }
 
             .articles-grid {
                 grid-template-columns: 1fr;
             }
 
-            .contact-form { padding: 24px; }
+            .contact-form { padding: 24px 18px; }
 
-            .admin-grid {
-                grid-template-columns: 1fr;
+            .centered-form-container {
+                padding: 0 4px;
             }
 
-            .admin-sidebar {
-                position: static;
+            .footer {
+                padding: 28px 0;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 0.95rem;
+            }
+
+            .page-title {
+                font-size: 1.55rem;
+            }
+
+            .btn {
+                padding: 12px 16px;
+            }
+
+            .article-card .card-actions {
+                text-align: center;
+            }
+
+            .article-card .card-actions .btn {
+                width: 100%;
             }
         }
     </style>
@@ -569,27 +823,35 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <nav class="navbar">
-                <a href="{{ route('home') }}" class="logo">
-                    <div class="logo-icon">BS</div>
-                    Buena Salud
-                </a>
-                <ul class="nav-menu">
-                    <li><a href="{{ route('home') }}" class="{{ Request::is('/') ? 'active' : '' }}">Accueil</a></li>
-                    <li><a href="{{ route('articles') }}" class="{{ Request::is('articles*') ? 'active' : '' }}">Articles</a></li>
-                    <li><a href="{{ route('contact') }}" class="{{ Request::is('contact') ? 'active' : '' }}">Contact</a></li>
-                </ul>
-                <div class="nav-auth">
-                    @auth
-                        <span class="nav-user">{{ auth()->user()->name }}</span>
-                        <form method="post" action="{{ route('comment.logout') }}" class="nav-auth-form">
-                            @csrf
-                            <button type="submit" class="nav-auth-link">Déconnexion</button>
-                        </form>
-                    @else
-                        <a href="{{ route('comment.login', ['redirect_to' => request()->fullUrl()]) }}" class="nav-auth-link">Connexion</a>
-                        <a href="{{ route('comment.register', ['redirect_to' => request()->fullUrl()]) }}" class="nav-auth-link">Créer un compte</a>
-                    @endauth
+            <nav class="navbar" aria-label="Navigation principale">
+                <div class="navbar-brand-row">
+                    <a href="{{ route('home') }}" class="logo">
+                        <div class="logo-icon">BS</div>
+                        <span class="logo-text">Buena Salud</span>
+                    </a>
+                    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel">
+                        <span class="nav-toggle-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Ouvrir ou fermer le menu</span>
+                    </button>
+                </div>
+                <div class="nav-panel" id="navPanel">
+                    <ul class="nav-menu">
+                        <li><a href="{{ route('home') }}" class="{{ Request::is('/') ? 'active' : '' }}">Accueil</a></li>
+                        <li><a href="{{ route('articles') }}" class="{{ Request::is('articles*') ? 'active' : '' }}">Articles</a></li>
+                        <li><a href="{{ route('contact') }}" class="{{ Request::is('contact') ? 'active' : '' }}">Contact</a></li>
+                    </ul>
+                    <div class="nav-auth">
+                        @auth
+                            <span class="nav-user">{{ auth()->user()->name }}</span>
+                            <form method="post" action="{{ route('comment.logout') }}" class="nav-auth-form">
+                                @csrf
+                                <button type="submit" class="nav-auth-link">Déconnexion</button>
+                            </form>
+                        @else
+                            <a href="{{ route('comment.login', ['redirect_to' => request()->fullUrl()]) }}" class="nav-auth-link">Connexion</a>
+                            <a href="{{ route('comment.register', ['redirect_to' => request()->fullUrl()]) }}" class="nav-auth-link">Créer un compte</a>
+                        @endauth
+                    </div>
                 </div>
             </nav>
         </div>
@@ -607,5 +869,41 @@
             <div>Contenu à titre informatif seulement. Consultez un professionnel de la santé.</div>
         </div>
     </footer>
+    <script>
+        (function () {
+            var toggle = document.getElementById('navToggle');
+            var panel = document.getElementById('navPanel');
+            if (!toggle || !panel) return;
+
+            function setOpen(open) {
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                panel.classList.toggle('is-open', open);
+            }
+
+            toggle.addEventListener('click', function () {
+                setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+            });
+
+            panel.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.matchMedia('(max-width: 768px)').matches) {
+                        setOpen(false);
+                    }
+                });
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && panel.classList.contains('is-open')) {
+                    setOpen(false);
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                if (!window.matchMedia('(max-width: 768px)').matches) {
+                    setOpen(false);
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

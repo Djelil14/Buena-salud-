@@ -252,6 +252,38 @@
 				grid-template-columns: 1fr;
 			}
 		}
+
+		@media (max-width: 768px) {
+			.admin-dashboard-hero {
+				flex-direction: column;
+				align-items: stretch;
+			}
+
+			.admin-dashboard-hero .actions-row {
+				width: 100%;
+				flex-direction: column;
+			}
+
+			.admin-dashboard-hero .actions-row .btn {
+				width: 100%;
+				text-align: center;
+				justify-content: center;
+			}
+
+			.dashboard-kpis-grid {
+				grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+			}
+
+			.panel-head {
+				flex-wrap: wrap;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.kpi-value {
+				font-size: 1.1rem;
+			}
+		}
 	</style>
 @endsection
 

@@ -398,13 +398,38 @@
 		}
 
 		@media (max-width: 768px) {
+			.dashboard-hero {
+				flex-direction: column;
+				align-items: stretch;
+			}
+
+			.dashboard-kpis {
+				grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+			}
+
+			.performance-strip {
+				grid-template-columns: 1fr;
+			}
+
 			.dashboard-hero-actions {
 				width: 100%;
+				flex-direction: column;
 			}
 
 			.dashboard-hero-actions .btn {
-				flex: 1;
+				width: 100%;
 				text-align: center;
+				justify-content: center;
+			}
+
+			.table-toolbar {
+				flex-direction: column;
+				align-items: stretch;
+			}
+
+			.toolbar-input {
+				min-width: 0;
+				width: 100%;
 			}
 		}
 	</style>

@@ -109,6 +109,27 @@
 				position: static;
 			}
 		}
+
+		@media (max-width: 768px) {
+			.contact-form {
+				padding: 22px 16px;
+			}
+
+			.actions-row {
+				flex-direction: column;
+			}
+
+			.actions-row .btn {
+				width: 100%;
+				justify-content: center;
+				text-align: center;
+			}
+
+			.page-title {
+				font-size: clamp(1.25rem, 5vw, 1.6rem);
+				word-break: break-word;
+			}
+		}
 	</style>
 @endsection
 

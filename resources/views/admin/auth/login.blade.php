@@ -24,6 +24,20 @@
 			</form>
 		</div>
 	</section>
+
+	<style>
+		@media (max-width: 768px) {
+			.centered-form-container .contact-form {
+				padding: 24px 18px;
+			}
+
+			.centered-form-container .btn {
+				width: 100%;
+				justify-content: center;
+				text-align: center;
+			}
+		}
+	</style>
 @endsection
 
 

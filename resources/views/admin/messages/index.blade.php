@@ -202,6 +202,26 @@
 			box-shadow: 0 8px 16px rgba(180, 35, 24, 0.16);
 			background: #ffe4e6;
 		}
+
+		@media (max-width: 768px) {
+			.messages-hero {
+				flex-direction: column;
+			}
+
+			.hero-mini-kpis {
+				width: 100%;
+			}
+
+			.mini-kpi {
+				flex: 1;
+				min-width: 0;
+			}
+
+			.table-toolbar .toolbar-input {
+				min-width: 0;
+				width: 100%;
+			}
+		}
 	</style>
 
 	<script>
