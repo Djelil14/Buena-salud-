@@ -72,15 +72,15 @@
 	<style>
 		.editor-grid {
 			display: grid;
-			grid-template-columns: 1fr 320px;
-			gap: 18px;
+			grid-template-columns: 1fr;
+			gap: 24px;
 			align-items: start;
 		}
 
 		.editor-side {
 			padding: 16px;
-			position: sticky;
-			top: 90px;
+			position: static;
+			top: auto;
 		}
 
 		.editor-side-title {
