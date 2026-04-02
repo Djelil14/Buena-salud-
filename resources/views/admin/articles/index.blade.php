@@ -131,11 +131,24 @@
 					<td>{{ optional($article->date_publication)->format('d/m/Y') }}</td>
 					<td>
 						<div class="row-actions">
-						<a href="{{ route('admin.articles.edit', $article->id) }}" class="btn btn-secondary">Éditer</a>
+						<a href="{{ route('admin.articles.edit', $article->id) }}" class="icon-btn icon-btn-edit" title="Éditer l'article" aria-label="Éditer l'article">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M4 20h4l10-10-4-4L4 16v4z"></path>
+								<path d="M14 6l4 4"></path>
+							</svg>
+						</a>
 						<form method="post" action="{{ route('admin.articles.destroy', $article->id) }}" onsubmit="return confirm('Supprimer cet article ?');">
 							@csrf
 							@method('DELETE')
-							<button type="submit" class="btn btn-danger">Supprimer</button>
+							<button type="submit" class="icon-btn icon-btn-delete" title="Supprimer l'article" aria-label="Supprimer l'article">
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path d="M3 6h18"></path>
+									<path d="M8 6V4h8v2"></path>
+									<path d="M19 6l-1 14H6L5 6"></path>
+									<path d="M10 11v6"></path>
+									<path d="M14 11v6"></path>
+								</svg>
+							</button>
 						</form>
 						</div>
 					</td>
@@ -327,6 +340,53 @@
 			color: #991b1b;
 			background: #fee2e2;
 			border-color: #fecaca;
+		}
+
+		.icon-btn {
+			width: 36px;
+			height: 36px;
+			border-radius: 10px;
+			border: 1px solid transparent;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: #fff;
+			cursor: pointer;
+			transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+		}
+
+		.icon-btn svg {
+			width: 18px;
+			height: 18px;
+			fill: none;
+			stroke: currentColor;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+
+		.icon-btn-edit {
+			color: #0f766e;
+			border-color: #b9e9df;
+			background: #ecfdf5;
+		}
+
+		.icon-btn-edit:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 8px 16px rgba(15, 118, 110, 0.16);
+			background: #dff9f0;
+		}
+
+		.icon-btn-delete {
+			color: #b42318;
+			border-color: #fecaca;
+			background: #fff1f2;
+		}
+
+		.icon-btn-delete:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 8px 16px rgba(180, 35, 24, 0.16);
+			background: #ffe4e6;
 		}
 
 		.table-empty-state {

@@ -56,11 +56,23 @@
 					<td>{{ $message->created_at->format('d/m/Y H:i') }}</td>
 					<td>
 						<div class="row-actions">
-						<a href="{{ route('admin.messages.reply', $message->id) }}" class="btn btn-secondary">Répondre</a>
+						<a href="{{ route('admin.messages.reply', $message->id) }}" class="icon-btn icon-btn-reply" title="Répondre au message" aria-label="Répondre au message">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M10 9V5l-7 7 7 7v-4h4a7 7 0 0 0 7-7v-2a7 7 0 0 0-7-7h-4z"></path>
+							</svg>
+						</a>
 						<form method="post" action="{{ route('admin.messages.destroy', $message->id) }}" onsubmit="return confirm('Supprimer ce message ?');">
 							@csrf
 							@method('DELETE')
-							<button type="submit" class="btn btn-danger">Supprimer</button>
+							<button type="submit" class="icon-btn icon-btn-delete" title="Supprimer le message" aria-label="Supprimer le message">
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path d="M3 6h18"></path>
+									<path d="M8 6V4h8v2"></path>
+									<path d="M19 6l-1 14H6L5 6"></path>
+									<path d="M10 11v6"></path>
+									<path d="M14 11v6"></path>
+								</svg>
+							</button>
 						</form>
 						</div>
 					</td>
@@ -142,6 +154,53 @@
 			color: #64748b;
 			border-top: 1px dashed #dbe8f1;
 			background: #fbfdff;
+		}
+
+		.icon-btn {
+			width: 36px;
+			height: 36px;
+			border-radius: 10px;
+			border: 1px solid transparent;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: #fff;
+			cursor: pointer;
+			transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+		}
+
+		.icon-btn svg {
+			width: 18px;
+			height: 18px;
+			fill: none;
+			stroke: currentColor;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+
+		.icon-btn-reply {
+			color: #0f766e;
+			border-color: #b9e9df;
+			background: #ecfdf5;
+		}
+
+		.icon-btn-reply:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 8px 16px rgba(15, 118, 110, 0.16);
+			background: #dff9f0;
+		}
+
+		.icon-btn-delete {
+			color: #b42318;
+			border-color: #fecaca;
+			background: #fff1f2;
+		}
+
+		.icon-btn-delete:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 8px 16px rgba(180, 35, 24, 0.16);
+			background: #ffe4e6;
 		}
 	</style>
 
