@@ -165,6 +165,7 @@
 			grid-template-columns: 300px minmax(0, 1fr);
 			gap: 16px;
 			align-items: start;
+			min-width: 0;
 		}
 
 		.contact-side {
@@ -204,6 +205,7 @@
 
 		.contact-form-wrapper {
 			width: 100%;
+			min-width: 0;
 		}
 
 		.contact-form-card {

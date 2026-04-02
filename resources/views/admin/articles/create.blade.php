@@ -216,6 +216,37 @@
 				padding: 16px;
 			}
 		}
+
+		@media (max-width: 768px) {
+			.create-hero {
+				flex-direction: column;
+				align-items: stretch;
+			}
+
+			.create-hero-badge {
+				align-self: flex-start;
+			}
+
+			.create-form {
+				padding: 18px 14px;
+			}
+
+			.create-actions {
+				flex-direction: column;
+			}
+
+			.create-actions .btn {
+				width: 100%;
+				justify-content: center;
+				text-align: center;
+			}
+
+			.form-switches {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 12px;
+			}
+		}
 	</style>
 @endsection
 

@@ -176,7 +176,8 @@
 		.article-head-meta {
 			display: flex;
 			align-items: center;
-			gap: 12px;
+			flex-wrap: wrap;
+			gap: 8px 12px;
 			font-size: 15px;
 			color: #666;
 		}
@@ -212,8 +213,16 @@
 			line-height: 1.75;
 			color: #333;
 			word-wrap: break-word;
+			overflow-wrap: anywhere;
 			max-width: 760px;
 			margin: 0 auto;
+		}
+
+		.article-body-content img,
+		.article-body-content video,
+		.article-body-content iframe {
+			max-width: 100%;
+			height: auto;
 		}
 
 		.article-body-content p {
@@ -545,7 +554,7 @@
 			}
 
 			.article-single-title {
-				font-size: 32px;
+				font-size: clamp(1.5rem, 6vw, 2rem);
 			}
 
 			.article-excerpt-single {
@@ -573,6 +582,35 @@
 				width: 30px;
 				height: 30px;
 				font-size: 12px;
+			}
+
+			.comment-user-context {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.article-top-actions .btn {
+				width: 100%;
+				text-align: center;
+				justify-content: center;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.article-hero-image {
+				height: 220px;
+			}
+
+			.article-body-content h2 {
+				font-size: 1.35rem;
+			}
+
+			.article-body-content h3 {
+				font-size: 1.15rem;
+			}
+
+			.comments-title {
+				font-size: 1.35rem;
 			}
 		}
 	</style>

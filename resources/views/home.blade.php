@@ -8,8 +8,10 @@
             <div class="hero-content">
                 <h1>Un blog médical fiable et accessible</h1>
                 <p>Des articles rédigés avec soin pour comprendre votre santé au quotidien.</p>
-                <a href="{{ route('articles') }}" class="btn btn-primary">Découvrir les articles</a>
-                <a href="{{ route('contact') }}" class="btn btn-secondary">Nous contacter</a>
+                <div class="hero-cta">
+                    <a href="{{ route('articles') }}" class="btn btn-primary">Découvrir les articles</a>
+                    <a href="{{ route('contact') }}" class="btn btn-secondary">Nous contacter</a>
+                </div>
             </div>
         </div>
     </section>
@@ -115,8 +117,15 @@
             opacity: 0.96;
         }
 
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+
         .hero .btn-secondary {
-            margin-left: 10px;
+            margin-left: 0;
         }
 
         .empty-state {
@@ -245,9 +254,27 @@
                 min-height: 360px;
             }
 
-            .hero .btn-secondary {
-                margin-left: 0;
-                margin-top: 10px;
+            .hero-content {
+                padding: 28px 0;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-cta .btn {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                margin: 8px;
+                min-height: 320px;
+                border-radius: 14px;
             }
         }
     </style>
