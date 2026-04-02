@@ -62,10 +62,6 @@
 					<label>Image (liste)</label>
 					<input type="file" name="image" class="form-control">
 				</div>
-				<div class="form-group">
-					<label>Image de couverture (détail)</label>
-					<input type="file" name="image_couverture" class="form-control">
-				</div>
 			</aside>
 		</div>
 		<div class="actions-row create-actions">
