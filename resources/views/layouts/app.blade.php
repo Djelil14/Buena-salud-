@@ -226,6 +226,28 @@
             text-decoration: underline;
         }
 
+        .nav-dashboard-admin {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            color: #fff !important;
+            background: linear-gradient(135deg, #1cb6cf, var(--primary));
+            box-shadow: 0 8px 18px rgba(23, 162, 184, 0.28);
+            white-space: nowrap;
+            transition: transform 0.2s ease, box-shadow 0.25s ease;
+        }
+
+        .nav-dashboard-admin:hover {
+            color: #fff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(23, 162, 184, 0.35);
+        }
+
         .nav-user {
             font-weight: 600;
             color: #0f172a;
@@ -751,6 +773,13 @@
                 border-top: 1px solid #eef4f8;
             }
 
+            .nav-auth .nav-dashboard-admin {
+                width: 100%;
+                justify-content: center;
+                min-height: 44px;
+                order: -1;
+            }
+
             .nav-auth-link {
                 padding: 12px;
                 min-height: 44px;
@@ -841,6 +870,9 @@
                         <li><a href="{{ route('contact') }}" class="{{ Request::is('contact') ? 'active' : '' }}">Contact</a></li>
                     </ul>
                     <div class="nav-auth">
+                        @if(session('is_admin'))
+                            <a href="{{ route('admin.dashboard') }}" class="nav-dashboard-admin">Dashboard</a>
+                        @endif
                         @auth
                             <span class="nav-user">{{ auth()->user()->name }}</span>
                             <form method="post" action="{{ route('comment.logout') }}" class="nav-auth-form">
