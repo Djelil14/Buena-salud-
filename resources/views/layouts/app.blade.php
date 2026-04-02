@@ -603,7 +603,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-text">© 2025 Buena Salud — Tous droits réservés.</div>
+            <div class="footer-text">© {{ date('Y') }} Buena Salud — Tous droits réservés.</div>
             <div>Contenu à titre informatif seulement. Consultez un professionnel de la santé.</div>
         </div>
     </footer>
