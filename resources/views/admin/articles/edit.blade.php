@@ -54,13 +54,6 @@
 					@endif
 					<input type="file" name="image" class="form-control">
 				</div>
-				<div class="form-group">
-					<label>Image de couverture (détail)</label>
-					@if($article->image_couverture)
-						<div class="thumb-wrap"><img src="/images/{{ rawurlencode($article->image_couverture) }}" alt="" class="image-thumb"></div>
-					@endif
-					<input type="file" name="image_couverture" class="form-control">
-				</div>
 			</aside>
 		</div>
 		<div class="actions-row">

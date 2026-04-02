@@ -54,9 +54,8 @@ class ArticleController extends Controller
     {
         $validated = $this->validateRequest($request);
 
-        // Upload images si fournis
+        // Upload image liste si fournie
         $validated['image'] = $this->handleUpload($request, 'image', $request->input('image'));
-        $validated['image_couverture'] = $this->handleUpload($request, 'image_couverture', $request->input('image_couverture'));
 
         $validated['published'] = $request->boolean('published');
         $validated['afficher_accueil'] = $request->boolean('afficher_accueil');
@@ -77,10 +76,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $validated = $this->validateRequest($request, updating: true);
 
-        $image = $this->handleUpload($request, 'image', $article->image);
-        $imageCouverture = $this->handleUpload($request, 'image_couverture', $article->image_couverture);
-        $validated['image'] = $image;
-        $validated['image_couverture'] = $imageCouverture;
+        $validated['image'] = $this->handleUpload($request, 'image', $article->image);
 
         $validated['published'] = $request->boolean('published');
         $validated['afficher_accueil'] = $request->boolean('afficher_accueil');
@@ -105,7 +101,6 @@ class ArticleController extends Controller
             'excerpt' => ['required', 'string'],
             'content' => ['required', 'string'],
             'image' => [$updating ? 'nullable' : 'sometimes', 'file', 'image', 'max:5120'],
-            'image_couverture' => [$updating ? 'nullable' : 'sometimes', 'file', 'image', 'max:5120'],
             'meta_description' => ['nullable', 'string'],
             'published' => ['nullable'],
             'afficher_accueil' => ['nullable'],
